@@ -40,13 +40,13 @@
 ;; Now when we have a word chain we
 ;; can use it to generate text.
 
-(defn ends-with-punctuation [[_ s]]
+(defn ends-with-punctuation? [[_ s]]
   (boolean (re-matches #".*[\.!?] *$" s)))
 
 (defn walk-chain [prefix chain result]
   (let [candidates (get chain prefix)]
     (if (or (empty? candidates)
-            (ends-with-punctuation prefix))
+            (ends-with-punctuation? prefix))
       result
       (let [candidate (rand-nth (seq candidates))
             new-prefix [(last prefix) candidate]]
